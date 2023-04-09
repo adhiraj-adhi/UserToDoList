@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main-container{
+            width: 100%;
+            min-height: 100vh;
+            height: 100vh;
+
+            background: #009FFF;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #ec2F4B, #009FFF);
+            background: linear-gradient(to right, #ec2F4B, #009FFF);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-container{
+            width: 45%;
+            height: 65%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* flex-wrap: wrap; */
+            /* border: 1.7px solid black; */
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .login, .register{
+            width: 100%;
+            height: 100%;
+            background: #ec2F4B;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #009FFF, #ec2F4B);
+            background: linear-gradient(to right, #009FFF, #ec2F4B);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .login .errorMessage{
+            font-size: 1.3rem;
+            color: greenyellow;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 900;
+        }
+
+        .login form label , .register form label{
+            font-size: 1.1rem;
+        }
+
+        .login form input, .register form input {
+            padding: 0.45rem;
+            border-radius: 15px;
+            outline: none;
+            border: none;
+            /* min-width: 190px; */
+        }
+
+        .login form, .register form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login form table, .register form table {
+            border-spacing: 1rem;
+        }
+
+        .login .toggleUp, .register .toggleUp{
+            background: white;
+            width: 60%;
+            padding: 0.45rem;
+            border-radius: 12px;
+            display: flex;
+        }
+        /* .login form input[type=submit] {
+            width: 5px;
+            border-right: 1px solid black;
+        } */
+        .login .toggleUp button, .register .toggleUp button{
+            width: 50%;
+            background: white;
+            border: none;
+            outline: none;
+        }
+        .login .toggleUp .button, .register .toggleUp .button{
+            border-right: 2px solid black;
+        }
+
+        .register{
+            position: absolute;
+            left: 100%;
+            /* border: 2px solid orangered; */
+            opacity: 0;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .registerShift{
+            left: 0%;
+            opacity: 1;
+        };
+
+        .loginInvisible{
+            display: none;
+        }
+
+        @media screen and (max-width:768px) {
+            table tr{
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 1rem;
+            }
+            .login form input, .register form input{
+                border-radius: 9px;
+            }
+        }
+
+        @media screen and (max-width:520px) {
+            .slider-container{
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="slider-container">
+            <div class="login">
+                <p class="errorMessage"> <%= data %> </p>
+                <div class="toggleUp">
+                    <button class="button" onclick="signInClicked()">SignIn</button>
+                    <button onclick="signUpClicked()">SignUp</button>
+                </div>
+                <form action="/" method="POST">
+                    <table>
+                        <tr>
+                            <td><label for="email">Enter Email : </label></td>
+                            <td><input type="email" spellcheck="false" name="email" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">Enter Password : </label></td>
+                            <td><input type="password" name="password" /></td>
+                        </tr>
+                    </table>
+
+                    <input type="submit" value="Login" />
+                </form>
+            </div>
+            <div class="register">
+                <div class="toggleUp">
+                    <button class="button" onclick="signInClicked()">SignIn</button>
+                    <button onclick="signUpClicked()">SignUp</button>
+                </div>
+
+                <form action="/register" method="POST">
+                    <table>
+                        <tr>
+                            <td><label for="email">Enter Name : </label></td>
+                            <td><input type="text" spellcheck="false" name="name" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">Enter Email : </label></td>
+                            <td><input type="email" spellcheck="false" name="email" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">Enter Password : </label></td>
+                            <td><input type="password" name="password" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">Confirm Password : </label></td>
+                            <td><input type="password" name="confPassword" /></td>
+                        </tr>
+                    </table>
+
+                    <input type="submit" value="Register" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const register = document.querySelector('.register');
+        const login = document.querySelector('.login');
+
+        function signInClicked(){
+            register.classList.remove('registerShift');
+            login.classList.remove('loginInvisible');
+        }
+        function signUpClicked(){
+            register.classList.add('registerShift');
+            login.classList.add('loginInvisible');
+        }
+    </script>
+</body>
+</html>

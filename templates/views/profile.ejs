@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="public/css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #009FFF;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #ec2F4B, #009FFF);
+            background: linear-gradient(to right, #ec2F4B, #009FFF);
+
+            position: relative;
+        }
+
+        header {
+            width: 100%;
+            height: 8vh;
+            position: fixed;
+            top: 0;
+            background: white;
+            box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            /* z-index: 4; */
+        }
+
+        header h3 {
+            width: 74%;
+            /* border: 1px solid red; */
+            text-align: center;
+        }
+
+        header .logout {
+            width: 25%;
+            /* border: 1px solid black; */
+            text-align: center;
+        }
+
+        header a {
+            text-decoration: none;
+            padding: 0.5rem;
+            background: #009FFF;
+            color: white;
+            border-radius: 7px;
+        }
+
+        .form-wrapper {
+            width: 100%;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .creator {
+            width: 50%;
+            height: 100%;
+            /* border: 1px solid red; */
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .creator form {
+            width: 80%;
+            height: 52%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgb(246, 246, 246);
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .creator form label {
+            font-size: large;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .creator form input[type=text] {
+            font-family: 'Poppins', sans-serif;
+            color: rgb(0, 7, 4);
+            padding: 0.6rem;
+            border: 0.1px solid black;
+            outline: none;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .creator form input[type=submit] {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 20px;
+            background: rgb(41, 41, 41);
+            color: white;
+            box-shadow: 1.2px 1.2px gray;
+        }
+
+        .creator form input[type=submit]:hover {
+            color: orangered;
+        }
+
+        .displayer {
+            width: 50%;
+            height: 95%;
+            /* border: 1px solid black; */
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wrapper {
+            width: 80%;
+            height: 90%;
+            background: rgb(246, 246, 246);
+            border-radius: 25px;
+            box-shadow: -3px -3px 1px rgba(0, 0, 0, 0.3), 2px 2px 1px rgba(0, 0, 0, 0.3);
+            display: flex;
+            /* align-items: center; */
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+
+            overflow: auto;
+        }
+
+        .list {
+            width: 80%;
+            height: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgb(235, 235, 235);
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .list p {
+            width: 60%;
+            text-align: center;
+        }
+
+        .list .operator {
+            width: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .list .operator a {
+            text-decoration: none;
+        }
+
+        @media screen and (max-width:935px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .form-wrapper {
+                flex-direction: column;
+            }
+
+            .creator,
+            .displayer {
+                width: 75%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <%- include('../partials/UserName.ejs') %> -->
+    <div class="container">
+        <header>
+            <h3> Hello!!! &nbsp <%= data.name %> </h3>
+            <div class="logout">
+                <a href="/logout"> Logout </a>
+            </div>
+        </header>
+        <div class="form-wrapper">
+            <div class="creator">
+                <form action="/profile" method="POST">
+                    <label for="ToDo">Enter New Task Here</label>
+                    <input type="text" placeholder="Enter Task" name="task" autocomplete="off" />
+
+                    <input type="submit" value="Submit" />
+                </form>
+                <!-- <%- include('../partials/logout.ejs') %> -->
+            </div>
+            <div class="displayer">
+                <div class="wrapper">
+                    <!-- <% console.log(data) %>  -->
+                    <% data.tasks.forEach((item)=> { %>
+                        <div class="list">
+                            <p>
+                                <% if(item.status==="Completed" ) { %>
+                                    <s>
+                                        <%= item.task %>
+                                    </s>
+                                    <% } else { %>
+                                        <%= item.task %>
+                                            <% } %>
+                            </p>
+
+                            <div class="operator">
+                                <a href="/update/<%= data._id.valueOf() %>/<%= item._id.valueOf() %>"><i
+                                        class="fa-solid fa-pen-to-square" style="color : blue"></i></a>
+                                <a href="/delete/<%= data._id.valueOf() %>/<%= item._id.valueOf() %>"><i
+                                        class="fa-solid fa-trash" style="color : red"></i></a>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

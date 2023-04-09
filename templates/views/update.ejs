@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .updator {
+            width: 100%;
+            height: 100vh;
+            background: #009FFF;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #ec2F4B, #009FFF);
+            background: linear-gradient(to right, #ec2F4B, #009FFF);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .updator form {
+            width: 45%;
+            height: 65%;
+            /* background: rgb(152, 4, 152); */
+
+            background: #8A2387;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #dc8d5c, #E94057, #8A2387);
+            background: linear-gradient(to right, #dc8d5c, #E94057, #8A2387);
+
+
+            border-radius: 25px;
+            box-shadow: 4.5px 4.5px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .updator form table tr{
+            height: 3.5rem;
+        }
+        .updator form table tr td input, .updator form table tr td select{
+            padding: 0.45rem;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 2.3px 2.3px 1px rgba(0, 0, 0, 0.6);
+            outline: none;
+        }
+        .updator form input[type=submit]{
+            margin-top: 1rem;
+            padding: 0.7rem 1rem;
+            border-radius: 20px;
+            border: none;
+            color: black;
+            box-shadow: 2.3px 2.3px 1px rgba(0, 0, 0, 0.6);
+            transition: color 0.2s;
+        }
+        .updator form input[type=submit]:hover{
+            color: orangered;
+        }
+
+        @media screen and (max-width:935px) {
+            .updator form{
+                width: 87%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="updator">
+        <% console.log(data) %>
+        <% console.log(ids) %>
+        <form method="post" action="/update/<%= ids.idUser %>/<%= ids.idItem %>">
+            <table>
+                <tr>
+                    <td><label for="oldTask">Original Task : </label></td>
+                    <td>&nbsp<input type="text" value="<%= data.task %>" readonly /></td>
+                    <!-- We have used readonly so that user can not edit the value of oldTask -->
+                </tr>
+                <tr>
+                    <td><label for="newTask">Update To : </label></td>
+                    <td>&nbsp<input type="text" placeholder="Enter The Task" value="<%= data.task %>" name="newTask"/></td>
+                </tr>
+                <tr>
+                    <td><label for="newTask">Task Status : </label></td>
+                    <td>&nbsp<select name="status">
+                        <% if(data.status === 'Completed'){ %>
+                            <option> Pending </option>
+                            <option selected> Completed </option>
+                        <% } else { %>
+                            <option selected> Pending </option>
+                            <option> Completed </option>
+                        <% } %>
+                    </select></td>
+                </tr>
+            </table>
+            <!-- <div class="taskFromDb">
+                <label for="oldTask">Original Task : </label>
+                <input type="text" value="Task From Database" />
+            </div> -->
+            <!-- <div class="updation">
+                <label for="newTask">Update To : </label>
+                <input type="text" placeholder="Enter The Task" />
+            </div> -->
+            <input type="submit" value="Update" />
+        </form>
+    </div>
+</body>
+
+</html>
